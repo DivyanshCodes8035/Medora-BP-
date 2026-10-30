@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f8f6">
+  <meta name="description" content="A patient-controlled place to record home blood pressure readings and prepare a weekly summary for a doctor visit.">
+  <title>Medora BP Notes | Your week, ready to review</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="dna-decor dna-decor-one" aria-hidden="true"><img src="assets/dna-small.png" alt=""></div>
+  <div class="dna-decor dna-decor-two" aria-hidden="true"><img src="assets/dna-small.png" alt=""></div>
+  <div class="dna-decor dna-decor-three" aria-hidden="true"><img src="assets/dna-small.png" alt=""></div>
+  <div class="dna-decor dna-decor-four" aria-hidden="true"><img src="assets/dna-small.png" alt=""></div>
+  <header class="topbar">
+    <a class="brand" href="#main" aria-label="Medora BP Notes home">
+      <span class="brand-mark" aria-hidden="true"><span></span><span></span></span>
+      <span><strong>medora</strong><small>BP NOTES</small></span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a class="nav-link active" href="#week">My week</a>
+      <a class="nav-link" href="#readings">Readings</a>
+      <a class="nav-link" href="#about">About</a>
+    </nav>
+    <button class="voice-emergency-trigger" id="voice-emergency-open" type="button" aria-expanded="false" aria-controls="voice-emergency-panel">🎙 Emergency voice</button>
+    <span class="privacy-chip"><span class="privacy-dot"></span>Private on this device</span>
+  </header>
+  <aside class="voice-emergency-panel" id="voice-emergency-panel" aria-labelledby="voice-emergency-title" hidden>
+    <button class="voice-emergency-close" id="voice-emergency-close" type="button" aria-label="Close emergency voice assistant">×</button>
+    <p class="section-kicker">MEDORA EMERGENCY VOICE ASSISTANT</p>
+    <h2 id="voice-emergency-title">Need urgent help?</h2>
+    <p>Tap <strong>Start listening</strong> and say “Call emergency services.” If you need immediate help in India, use the red call button below.</p>
+    <p class="voice-emergency-status" id="voice-emergency-status" role="status" aria-live="polite">Voice listening starts only when you tap the button.</p>
+    <div class="voice-emergency-actions"><button class="voice-listen-button" id="voice-emergency-listen" type="button">Start listening</button><button class="voice-listen-stop" id="voice-emergency-stop" type="button" hidden>Stop listening</button></div>
+    <a class="voice-emergency-call" href="tel:112">Call Emergency Services · 112</a>
+    <small>Voice recognition may be unavailable. Tapping Call opens your phone app; confirm the call yourself.</small>
+  </aside>
+
+  <main id="main" class="page-shell">
+    <section class="intro" aria-labelledby="page-title">
+      <div class="intro-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> YOUR HOME BP JOURNAL</p>
+        <h1 id="page-title">Your week,<br><em>ready to review.</em></h1>
+        <p class="intro-text">Keep your readings and personal notes together. Before a visit, review the week in your own words and choose what you want to share.</p>
+      </div>
+      <aside class="hero-visual" aria-label="Medora's DNA-inspired visual">
+        <img class="hero-helix" src="assets/dna-small.png" alt="" aria-hidden="true">
+        <span class="visual-kicker">A LITTLE MORE CONTEXT</span>
+        <strong>Your week,<br>in your own words.</strong>
+        <span class="visual-caption">Readings · routines · questions</span>
+      </aside>
+    </section>
+
+    <section id="week" class="week-strip" aria-label="Current week overview">
+      <div><span class="week-label">YOUR CURRENT WEEK</span><strong id="week-range">—</strong></div>
+      <div class="week-stat"><span class="stat-number" id="week-count">0</span><span class="stat-label">readings logged</span></div>
+      <div class="week-status"><span class="status-orb" aria-hidden="true"></span><span id="week-status">Start with a reading whenever you’re ready.</span></div>
+    </section>
+
+    <div class="workspace-grid">
+      <section class="panel entry-panel" aria-labelledby="entry-title">
+        <div class="panel-heading">
+          <div><p class="section-kicker">ADD TO YOUR JOURNAL</p><h2 id="entry-title">Record a reading</h2></div>
+          <span class="step-mark">01</span>
+        </div>
+        <p class="panel-lead">Read the numbers from your existing monitor and enter them below.</p>
+        <form id="reading-form">
+          <fieldset class="bp-fields">
+            <legend class="sr-only">Blood pressure values</legend>
+            <label class="number-field">
+              <span class="field-label">Systolic <small>top number</small></span>
+              <span class="input-unit"><input id="systolic" name="systolic" type="number" inputmode="numeric" min="1" max="300" placeholder="—" required aria-label="Systolic, top number"><span>mmHg</span></span>
+            </label>
+            <span class="bp-divider" aria-hidden="true">/</span>
+            <label class="number-field">
+              <span class="field-label">Diastolic <small>bottom number</small></span>
+              <span class="input-unit"><input id="diastolic" name="diastolic" type="number" inputmode="numeric" min="1" max="200" placeholder="—" required aria-label="Diastolic, bottom number"><span>mmHg</span></span>
+            </label>
+          </fieldset>
+          <label class="form-label" for="reading-time">When did you take it?</label>
+          <input id="reading-time" name="reading-time" class="text-input" type="datetime-local" required>
+
+          <section class="entry-subsection medication-subsection" aria-labelledby="medication-heading">
+            <div class="subsection-heading"><span class="subsection-icon" aria-hidden="true">✳</span><div><h3 id="medication-heading">Medication check-in</h3><p>Capture what you want your clinician to know.</p></div><span class="optional">OPTIONAL</span></div>
+            <label class="form-label" for="medication-name">Which medicine(s) are you recording?</label>
+            <input id="medication-name" class="text-input" type="text" maxlength="180" placeholder="Enter medicine name(s), if useful">
+            <label class="form-label" for="medication-status">What would you like to note?</label>
+            <select id="medication-status" class="text-input">
+              <option value="">Choose an option or leave blank</option>
+              <option value="as-prescribed">Taken as prescribed</option>
+              <option value="missed-dose">A dose was missed</option>
+              <option value="changed-with-clinician">Changed with my clinician</option>
+              <option value="prefer-not">Prefer not to record</option>
+            </select>
+            <p class="field-help">This is a personal record, not medication advice. Follow your clinician’s instructions.</p>
+          </section>
+
+          <div class="field-heading"><label class="form-label" for="feeling-note">How were you feeling? <span class="optional">OPTIONAL</span></label><button class="voice-button" id="voice-button" type="button" aria-describedby="voice-help"><span aria-hidden="true">◉</span> Add by voice</button></div>
+          <div class="feeling-tags" role="group" aria-label="Optional feeling tags">
+            <button type="button" class="feeling-tag" data-feeling="Steady" aria-pressed="false">Steady</button>
+            <button type="button" class="feeling-tag" data-feeling="Tired" aria-pressed="false">Tired</button>
+            <button type="button" class="feeling-tag" data-feeling="Stressed" aria-pressed="false">Stressed</button>
+            <button type="button" class="feeling-tag" data-feeling="Something felt different" aria-pressed="false">Something felt different</button>
+          </div>
+          <textarea id="feeling-note" name="feeling-note" class="text-input note-input" rows="3" placeholder="Add a short note in your own words…"></textarea>
+          <p id="voice-help" class="field-help">Voice is only used when you tap the button. You can always type instead.</p>
+
+          <section class="entry-subsection context-subsection" aria-labelledby="context-heading">
+            <div class="subsection-heading"><span class="subsection-icon context-icon" aria-hidden="true">✧</span><div><h3 id="context-heading">Day context</h3><p>Anything else that helps explain your day?</p></div><span class="optional">OPTIONAL</span></div>
+            <textarea id="context-note" class="text-input note-input" rows="2" maxlength="300" placeholder="For example: sleep, activity, stress, or a detail to remember"></textarea>
+          </section>
+
+          <label class="form-label" for="visit-note">Question for my next visit <span class="optional">OPTIONAL</span></label>
+          <input id="visit-note" class="text-input" type="text" maxlength="180" placeholder="Something I want to ask my clinician">
+
+          <button class="primary-button" type="submit"><span>Save this reading</span><span class="button-arrow" aria-hidden="true">→</span></button>
+          <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+        </form>
+        <section class="bp-alert" id="high-bp-alert" role="alert" aria-labelledby="high-bp-alert-title" hidden>
+          <p class="section-kicker">HIGH READING ALERT</p>
+          <h3 id="high-bp-alert-title">Please recheck this reading</h3>
+          <p id="high-bp-alert-copy">This entry is above 180 systolic and/or 120 diastolic. Sit quietly and take another reading after at least one minute. A single reading does not diagnose a condition.</p>
+          <p class="bp-alert-urgent">If it remains this high and you have chest pain, shortness of breath, back pain, weakness, numbness, vision changes, or difficulty speaking, use the red emergency button now.</p>
+          <div class="bp-voice-row"><button class="bp-voice-button" id="speak-bp-alert" type="button">🔊 Listen to emergency instructions</button><button class="bp-voice-stop" id="stop-bp-alert-voice" type="button" hidden>Stop voice</button></div>
+          <a class="bp-emergency-button" href="tel:112">Call Emergency Services · 112</a>
+          <p class="bp-emergency-help">Opens your phone app to call India’s emergency number. Confirm the call on your device.</p>
+          <p>If the repeat reading remains this high without those symptoms, contact a healthcare professional as soon as possible.</p>
+          <label class="form-label" for="clinician-phone">Clinician’s phone number</label>
+          <div class="bp-call-row"><input id="clinician-phone" class="text-input" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="Add your doctor’s number"><button class="secondary-button" id="save-clinician-phone" type="button">Save number</button></div>
+          <a class="bp-call-button" id="call-clinician" href="" hidden>Call my clinician</a>
+          <p class="field-help">Tap to open your device’s phone app. Review the number and confirm the call yourself. This number stays in this browser.</p>
+          <button class="bp-alert-dismiss" id="dismiss-bp-alert" type="button">Dismiss alert</button>
+        </section>
+      </section>
+
+      <section class="panel summary-panel" aria-labelledby="summary-title">
+        <div class="panel-heading">
+          <div><p class="section-kicker">A CLEARER VISIT STARTS HERE</p><h2 id="summary-title">Your weekly summary</h2></div>
+          <span class="step-mark step-mark-coral">02</span>
+        </div>
+        <p class="panel-lead">Create a draft from this week’s entries, then review and edit it before you use it.</p>
+        <div class="summary-meta"><span class="summary-spark" aria-hidden="true">✳</span><span id="summary-meta-text">A draft built only from your saved entries</span></div>
+        <label class="sr-only" for="summary-text">Editable weekly summary</label>
+        <textarea id="summary-text" class="summary-editor" rows="12" placeholder="Your weekly draft will appear here after you add readings."></textarea>
+        <div class="summary-actions">
+          <button class="secondary-button" id="copy-button" type="button">Copy summary</button>
+          <button class="share-button" id="share-button" type="button"><span aria-hidden="true">↗</span> Share / print</button>
+        </div>
+        <p class="review-reminder"><span aria-hidden="true">✳</span> This is your draft. Check every detail and edit anything before sharing.</p>
+      </section>
+    </div>
+
+    <section id="readings" class="readings-section" aria-labelledby="readings-title">
+      <div class="readings-heading">
+        <div><p class="section-kicker">YOUR RECORD</p><h2 id="readings-title">Recent readings</h2></div>
+        <span class="small-count" id="total-count">0 entries</span>
+      </div>
+      <div id="empty-state" class="empty-state">
+        <span class="empty-mark" aria-hidden="true">＋</span><div><strong>Your journal starts with you.</strong><p>Read a result from your home monitor and add it above. No sample or medical data has been added.</p></div>
+      </div>
+      <div id="reading-list" class="reading-list" aria-live="polite"></div>
+    </section>
+
+    <section id="about" class="privacy-note">
+      <span class="lock-mark" aria-hidden="true">⌑</span>
+      <div><strong>Your prototype data stays in this browser.</strong><p>This classroom version saves entries locally on this device. It has no account or doctor connection. Avoid using a shared device for private notes.</p></div>
+      <span class="prototype-label">CLASSROOM PROTOTYPE</span>
+    </section>
+
+    <footer class="footer"><span>MEDORA BP NOTES</span><span>A patient-controlled record for a clearer conversation</span></footer>
+  </main>
+  <aside class="bp-chat" aria-label="Medora BP Guide">
+    <section class="bp-chat-panel" id="bp-chat-panel" aria-labelledby="bp-chat-title" hidden>
+      <header class="bp-chat-header"><span class="bp-chat-avatar" aria-hidden="true">M</span><div><strong id="bp-chat-title">Medora BP Guide</strong><small id="bp-chat-status">Checking AI connection…</small></div><button class="bp-chat-close" id="bp-chat-close" type="button" aria-label="Close BP Guide">×</button></header>
+      <div class="bp-chat-messages" id="bp-chat-messages" role="log" aria-live="polite" aria-relevant="additions">
+        <p class="bp-chat-bubble bot">Hi, I can help with general BP questions, taking a reading, medicines, or preparing for a clinician visit. What would you like to know?</p>
+      </div>
+      <div class="bp-chat-prompts" aria-label="Suggested questions"><button type="button" data-chat-prompt="How do I take a reading correctly?">Taking a reading</button><button type="button" data-chat-prompt="I missed a medicine dose">Missed a dose</button><button type="button" data-chat-prompt="What should I ask my doctor?">Doctor visit</button></div>
+      <form class="bp-chat-form" id="bp-chat-form"><label class="sr-only" for="bp-chat-input">Ask a blood pressure question</label><input id="bp-chat-input" type="text" maxlength="300" placeholder="Ask a BP question…" autocomplete="off"><button type="submit" aria-label="Send question">➤</button></form>
+      <p class="bp-chat-note">General information only, not a diagnosis. When AI is connected, your question is sent to the selected AI provider; Medora does not send your saved journal. Avoid names or identifying details. <a href="https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings/monitoring-your-blood-pressure-at-home" target="_blank" rel="noopener">AHA home BP guidance</a></p>
+    </section>
+    <button class="bp-chat-launcher" id="bp-chat-launcher" type="button" aria-expanded="false" aria-controls="bp-chat-panel"><span class="bp-chat-launch-icon" aria-hidden="true">✦</span><span>Ask BP Guide</span></button>
+  </aside>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
+
+
